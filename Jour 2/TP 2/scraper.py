@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
+from pprint import pprint
 
 def scrape_books(url):
     livres = []
@@ -19,11 +20,19 @@ def scrape_books(url):
 print("Scraping...")
 data = scrape_books("https://books.toscrape.com/catalogue/category/books_1/index.html")
 
-print(f"\n {len(data)} livres récupérés")
-print("\n Aperçu:")
+print(f"\n DONNÉES BRUTES ({len(data)} livres):")
+for i, livre in enumerate(data, 1):
+    print(f"  {i}. {livre}")
+
+print("\n Aperçu des 5 premiers:")
 for i, b in enumerate(data[:5], 1):
     print(f"  {i}. {b['titre'][:35]}... - {b['prix']}")
 
+print("\n Création du DataFrame...")
 df = pd.DataFrame(data)
-df.to_csv("book.csv", index=False, encoding="utf-8")
-print("\n Données sauvegardées dans livres.csv")
+print(df.head(10))
+print(f"\nShape: {df.shape}")
+print(f"Colonnes: {df.columns.tolist()}")
+
+df.to_csv("books.csv", index=False, encoding="utf-8")
+print("\n Sauvegardé dans books.csv")
