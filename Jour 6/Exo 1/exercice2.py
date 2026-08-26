@@ -17,7 +17,6 @@ data = [
     (10, "Vieux", "Élevé", "Oui"),
 ]
 
-
 # Fonction entropie détaillée : affiche chaque étape du calcul
 def entropie_detaillee(nb_oui, nb_non, nom="H"):
     total = nb_oui + nb_non
